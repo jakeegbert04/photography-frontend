@@ -1,18 +1,20 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Posts from "./pages/Posts";
 import Navbar from "./navigation/Navbar";
+import PrivateRoute from "./routing/PrivateRoute";
 
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="" element={<Navigate to="/login" replace />} />
-        <Route path="login" element={<Login />} />
-        <Route path="posts" element={<Posts />} />
-        <Route path="*" element={<p>There's nothing here: 404!</p>} />
-      </Routes>
+      <BrowserRouter>
+        <Route path="/" component={Navbar} />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/posts" component={Posts} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
